@@ -5,6 +5,9 @@ const app = new Hono();
 const GITHUB = 'https://github.com';
 const GITHUB_USERNAME = 'ryanccn';
 
+const repo = (a?: string, b?: string) =>
+	typeof b !== 'undefined' ? `${a}/${b}` : `${GITHUB_USERNAME}/${a}`;
+
 app.get('/', (c) => c.redirect(`${GITHUB}/${GITHUB_USERNAME}`));
 
 app.get('/repos', (c) =>
@@ -23,9 +26,7 @@ app.get('/stars/:list?', (c) => {
 	if (typeof list === 'undefined') {
 		return c.redirect(`${GITHUB}/${GITHUB_USERNAME}?tab=stars`);
 	} else {
-		return c.redirect(
-			`${GITHUB}/stars/${GITHUB_USERNAME}/lists/${list}`
-		);
+		return c.redirect(`${GITHUB}/stars/${GITHUB_USERNAME}/lists/${list}`);
 	}
 });
 
@@ -38,10 +39,8 @@ app.get('/commits/:a/:b?', (c) => {
 	const a = c.req.param('a');
 	const b = c.req.param('b');
 
-	const repo =
-		typeof b !== 'undefined' ? `${a}/${b}` : `${GITHUB_USERNAME}/${a}`;
 	return c.redirect(
-		`${GITHUB}/${repo}/commits?author=${GITHUB_USERNAME}`
+		`${GITHUB}/${repo(a, b)}/commits?author=${GITHUB_USERNAME}`
 	);
 });
 
@@ -49,10 +48,8 @@ app.get('/issues/:a/:b?', (c) => {
 	const a = c.req.param('a');
 	const b = c.req.param('b');
 
-	const repo =
-		typeof b !== 'undefined' ? `${a}/${b}` : `${GITHUB_USERNAME}/${a}`;
 	return c.redirect(
-		`${GITHUB}/${repo}/issues?q=is%3Aissue+author%3A${GITHUB_USERNAME}`
+		`${GITHUB}/${repo(a, b)}/issues?q=is%3Aissue+author%3A${GITHUB_USERNAME}`
 	);
 });
 
@@ -60,10 +57,8 @@ app.get('/prs/:a/:b?', (c) => {
 	const a = c.req.param('a');
 	const b = c.req.param('b');
 
-	const repo =
-		typeof b !== 'undefined' ? `${a}/${b}` : `${GITHUB_USERNAME}/${a}`;
 	return c.redirect(
-		`${GITHUB}/${repo}/pulls?q=is%3Apr+author%3A${GITHUB_USERNAME}`
+		`${GITHUB}/${repo(a, b)}/pulls?q=is%3Apr+author%3A${GITHUB_USERNAME}`
 	);
 });
 
