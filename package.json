@@ -14,5 +14,6 @@
 	"scripts": {
 		"dev": "wrangler dev",
 		"deploy": "wrangler publish"
-	}
+	},
+	"packageManager": "pnpm@8.5.0"
 }
