@@ -15,5 +15,5 @@
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy"
 	},
-	"packageManager": "pnpm@8.6.2"
+	"packageManager": "pnpm@8.6.5"
 }
